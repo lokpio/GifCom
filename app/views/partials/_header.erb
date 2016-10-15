@@ -1,0 +1,6 @@
+<% if !logged_in? %>
+    <a href="/login">Login</a>
+    <a href="/users/new">Register</a>
+<% else %>
+      <a href="/logout">Logout</a>
+<% end %>

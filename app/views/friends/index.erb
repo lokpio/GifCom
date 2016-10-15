@@ -1,0 +1,17 @@
+<h1>PROFILE PAGE</h1>
+
+<% if @user %>
+  <h2>Welcome <%= current_user.username %>!</h2>
+  <a href="/friends/new">Find your friend.</a>
+  <h2>Friends:</h2>
+  <ul>
+  <% @user.friend_lists.each do |friend_list| %>
+    <li>
+    <form>
+      <%=friend_list.friend.username  %>
+      <input type="submit" value="chat">
+    </form>
+    </li>
+  <% end %>
+  </ul>
+<% end %>
