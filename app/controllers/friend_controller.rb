@@ -2,7 +2,7 @@ require 'net/http'
 
 get '/friends' do
   @user = current_user
-
+  
   erb :"friends/index"
 end
 

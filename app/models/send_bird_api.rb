@@ -2,6 +2,7 @@ module SendBirdApi
   include HTTParty
   A_KEY = ENV['API_TOKEN']
 
+
   def self.find(user_id)
     response = HTTParty.get(
       "https://api.sendbird.com/v3/users/#{user_id}",
@@ -11,9 +12,12 @@ module SendBirdApi
 
   def self.create_user(user)
     HTTParty.post(
-    "user_id": user.id,
+    "https://api.sendbird.com/v3/users/",
+    body:{
+    "user_id": "#{user.id}",
     "nickname": user.username,
-    "profile_url": user.profile_pic_url,
-    )
+    "profile_url": user.profile_pic_url
+    }.to_json,
+    headers: {"Api-Token": A_KEY})
   end
 end

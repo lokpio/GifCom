@@ -102,6 +102,7 @@ DEPENDENCIES
   factory_girl
   faker
   httparty
+  json
   pg
   pry
   rack-test
