@@ -2,12 +2,22 @@ require 'net/http'
 
 get '/friends' do
   @user = current_user
-  
   erb :"friends/index"
 end
 
 get "/friends/new" do
   erb :"friends/new"
+end
+
+post "/friends/find" do
+  user = User.find_by(email: params[:email])
+  redirect "/friends/#{user.id}"
+end
+
+get "/friends/:id" do
+  @user = User.find(params[:id])
+  @user_in_sendbird = SendBirdApi.find(@user.id)
+  erb :"friends/show"
 end
 
 post "/friends" do
@@ -19,12 +29,3 @@ post "/friends" do
   end
 end
 
-post "/friends/find" do
-  user = User.find_by(email: params[:email])
-  redirect "/friends/#{user.id}"
-end
-
-get "/friends/:id" do
-  @user = User.find(params[:id])
-  erb :"friends/show"
-end

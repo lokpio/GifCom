@@ -8,8 +8,7 @@ get '/users/new' do
 end
 
 post '/users' do
-	p params[:password_confirmation]
-	if params[:user][:password_confirmation] == params[:password_confirmation]
+	if params[:user][:password] == params[:password_confirmation]
 		user = User.new(params[:user])
 		if user.save
 			SendBirdApi.create_user(user)
