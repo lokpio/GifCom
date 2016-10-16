@@ -1,7 +1,4 @@
 <% if current_user %>
-	<% if error %>
-		<%= error %>
-	<% end %>
 	<form action="/friends/find" method="post">
 		<p> Find your user through email:</p>
 		<input type="email" name="email" required>

@@ -2,12 +2,13 @@
 
 <% if @user %>
   <h2>Welcome <%= current_user.username %>!</h2>
+  <img src="<%= @gif %>">
   <a href="/friends/new">Find your friend.</a>
   <h2>Friends:</h2>
   <ul>
   <% @user.friend_lists.each do |friend_list| %>
     <li>
-    <form>
+    <form action="/friends/<%= friend_list.id %>/chat" method="post">
       <%=friend_list.friend.username  %>
       <input type="submit" value="chat">
     </form>

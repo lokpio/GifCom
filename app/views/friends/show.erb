@@ -1,4 +1,4 @@
-<% if @user && !@user_in_sendbird.error %>
+<% if @user && !@user_in_sendbird.has_key?("error") %>
 <form action="/friends" method="post">
 	<%= @user.full_name %><br>
 	<%= @user.username %><br>
@@ -7,7 +7,6 @@
 	<input type="submit" value="Add">
 </form>
 <% else %>
-	<% error = "Your Friend has not register yet, please invite!!" %>
-	<% erb :"friends/new", locals:{error:error} %>	
+	<% redirect "/friends/new"%>	
 <% end %>
 

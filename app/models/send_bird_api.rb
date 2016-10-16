@@ -17,6 +17,20 @@ module SendBirdApi
         "nickname": user.username,
         "profile_url": user.profile_pic_url
         }.to_json,
-        headers: {"Api-Token": A_KEY})
+        headers: {"Api-Token": A_KEY}
+        )
+  end
+
+  def self.create_channel(friend_list)
+  #   HTTParty.post(
+  #     "https://api.sendbird.com/v3/open_channels",
+  #     body:{
+  #       "name": "#{friend_list.friend.username}",         
+  #       "cover_url": "#{friend_list.friend.profile_pic_url}",      
+  #       "user_ids": ["#{friend_list.friend.id}","#{friend_list.user.id}"],
+  #       "is_distinct": true
+  #     }.to_json,
+  #     headers: {"Api-Token": A_KEY}
+  #     )
   end
 end

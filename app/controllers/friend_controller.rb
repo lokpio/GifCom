@@ -2,6 +2,8 @@ require 'net/http'
 
 get '/friends' do
   @user = current_user
+  p "@"*30
+  @gif = GifApi.gif_translate("fuck").parsed_response["data"]["images"]["original"]["url"]
   erb :"friends/index"
 end
 
@@ -16,7 +18,7 @@ end
 
 get "/friends/:id" do
   @user = User.find(params[:id])
-  @user_in_sendbird = SendBirdApi.find(@user.id)
+  @user_in_sendbird = SendBirdApi.find(@user.id).parsed_response
   erb :"friends/show"
 end
 
@@ -29,3 +31,9 @@ post "/friends" do
   end
 end
 
+post "/friends/:id/chat" do
+  # friend_list = FriendList.find(params[:id])
+  # channel = SendBirdApi.create_channel(friend_list)
+  # channel_url = channel.parsed_response["channel_url"]
+  # redirect "/chats/#{channel_url}"
+end
