@@ -2,8 +2,6 @@ require 'net/http'
 
 get '/friends' do
   @user = current_user
-  p "@"*30
-  @gif = GifApi.gif_translate("fuck").parsed_response["data"]["images"]["original"]["url"]
   erb :"friends/index"
 end
 

@@ -33,4 +33,16 @@ module SendBirdApi
   #     headers: {"Api-Token": A_KEY}
   #     )
   end
+
+  def self.send_message(channel,message,user_id)
+    HTTParty.post(
+      "https://api.sendbird.com/v3/open_channels/#{channel}/messages",
+      body:{
+        "message_type": "MESG",
+        "user_id": "#{user_id}",
+        "message": "#{message}",
+        }.to_json,
+        headers: {"Api-Token": A_KEY}
+        )
+  end
 end
