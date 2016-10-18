@@ -1,8 +1,8 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  has_many :friend_lists
-  # users.password_hash in the database is a :string
+  has_many :chats
+    # users.password_hash in the database is a :string
   include BCrypt
 
 	validates_presence_of :full_name

@@ -18,6 +18,8 @@ gem 'shotgun'
 gem 'pry'
 gem 'dotenv'
 gem 'httparty'
+gem 'twilio-ruby'
+gem 'pusher'
 group :test do
   gem 'shoulda-matchers'
   gem 'rack-test'
