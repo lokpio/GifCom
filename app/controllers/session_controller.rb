@@ -6,7 +6,7 @@ post '/login' do
   user = User.authenticate(params[:email],params[:password])
   if (!logged_in?) && (user!=nil)
     login(user)
-    redirect "/friends"
+    redirect "/channels"
   else
     redirect :"/users/new"
   end

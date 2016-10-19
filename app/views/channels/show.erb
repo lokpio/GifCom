@@ -1,0 +1,14 @@
+<% if current_user %>
+<ul>
+  <% @channels.each do |channel|%>
+    <form action="/channels/join" method="post">
+    <li><h4>  <%= channel.name %></h4>
+    <input type="hidden" name="sub_channel" value="<%= channel.id %>">
+    <input type="submit" value="Join"></li>
+    </form>
+  <%end %>
+  </ul>
+<% else %>
+	<% redirect "/"%>
+<% end %>
+

@@ -1,0 +1,23 @@
+<h1>PROFILE PAGE</h1>
+
+<% if @user %>
+  <h2>Welcome <%= current_user.username %>!</h2>
+  <a href="/channels/new">Create channels.</a>
+  <form action="/channels/find" method="get">
+    Find your Channel:
+    <input type="text" name="name">
+    <input type="submit" value="Find">
+  </form>
+  <h2>Friends:</h2>
+  <ul>
+  <% @user.sub_channels.each do |channel| %>
+    <li>
+    <form class="channel_form" action="/chats/channel" method="get">
+      <%= channel.name  %>
+      <input type="hidden" name="channel" value="<%= channel.name %>">
+      <input type="submit" value="chat">
+    </form>
+    </li>
+  <% end %>
+  </ul>
+<% end %>

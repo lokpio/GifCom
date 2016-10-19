@@ -11,11 +11,10 @@ post '/users' do
 	if params[:user][:password] == params[:password_confirmation]
 		user = User.new(params[:user])
 		if user.save
-			SendBirdApi.create_user(user)
+			# SendBirdApi.create_user(user)
 			redirect "/login"
 		else
 			@errors = user.errors.messages
-			p @errors
 			erb :"users/new"
 		end
 	else

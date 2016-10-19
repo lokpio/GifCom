@@ -1,7 +1,7 @@
 module PusherApi
-	def create_client
+	def self.create_client
 		Pusher::Client.new(
-			app_id: ENV["API_ID"],
+			app_id: ENV["APP_ID"],
 			key: ENV["API_KEY"],
 			secret: ENV["API_SECRET"],
 			encrypted: true
