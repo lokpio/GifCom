@@ -1,0 +1,7 @@
+<% if errors %>
+  <% errors.each do |error,contents| %>
+    <% contents.each do |content| %>
+      <p><%= error %> : <%= content %></p>
+    <% end %>
+  <% end %>
+<% end %>

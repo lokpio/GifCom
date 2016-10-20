@@ -15,43 +15,40 @@ post "/channels" do
     subscribe = UsersChannel.new(user_id:current_user.id,channel_id:channel.id)
     if subscribe.save
       redirect :"/channels"
+    else
+      @errors = subscribe.errors.messages
+      erb :"channels/new"
     end
-      redirect :"/channels"
+    redirect :"/channels"
+  else
+    @errors = channel.errors.messages
+    erb :"channels/new"
   end
 end
 
 get "/channels/find" do
-  @channels = Channel.where(name: params[:name])
-  p "%"*30
-  p @channels
-  erb :"channels/show"
+  @channel = Channel.find_by(name: params[:name])
+  if @channel
+    erb :"channels/show"
+  else
+    @errors = {error:["Channel does not exist."]}
+    erb :"channels/index"
+  end
 end
 
-post "/channels/join" do
-  subscribe = UsersChannel.new(user_id:current_user.id,channel_id:params[:sub_channel])
+post "/channels/:id/join" do
+  subscribe = UsersChannel.new(user_id:current_user.id,channel_id:params[:id])
   if subscribe.save
     redirect :"/channels"
+  else
+    @channel = Channel.find(params[:id])
+    @errors = subscribe.errors.messages
+    erb :"channels/show"
   end
-    redirect :"/channels"
 end
-# post "/friends/:id" do
-#   @user = User.find(params[:id])
-#   # @user_in_sendbird = SendBirdApi.find(@user.id).parsed_response
-#   erb :"friends/show"
-# end
 
-# post "/friends" do
-#   friend = Chat.new(friend_id: params[:friend_id],user_id: current_user.id )
-#   if friend.save
-#     redirect "/friends"
-#   else
-#     redirect "/friends/new"
-#   end
-# end
-
-# post "/friends/:id/chat" do
-#   # friend_list = FriendList.find(params[:id])
-#   # channel = SendBirdApi.create_channel(friend_list)
-#   # channel_url = channel.parsed_response["channel_url"]
-#   # redirect "/chats/#{channel_url}"
-# end
+delete "/channels/:id" do
+  channel = Channel.find(params[:id])
+  channel.destroy
+  redirect "/channels"
+end

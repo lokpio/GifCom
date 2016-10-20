@@ -1,13 +1,11 @@
 $(document).ready(function() {
-
-
-
-  openChannel();
-  // runTwilio();
+  chatListener();
+  loginListener();
+  registerListener();
 });
 
-function openChannel() {
-  $('.start-button').on("click",function(event){
+function chatListener() {
+  $('.chat-form').on("click",function(event){
     event.preventDefault();
     var channelName = $(this).children("input[name=channel]").val();
     console.log(channelName)
@@ -18,7 +16,7 @@ function openChannel() {
 function runTwilio(channelName) {
   console.log('running')
   var username;
-    var $chatWindow = $('#messages');
+  var $chatWindow = $('#messages');
 
   $.getJSON('/token', {
     identity: username,
@@ -34,8 +32,6 @@ function runTwilio(channelName) {
 
         // Get the general chat channel, which is where all the messages are
         // sent in this simple application
-
-        console.log(channelName)
         var promise = messagingClient.getChannelByUniqueName(channelName);
         promise.then(function(channel) {
           generalChannel = channel;
@@ -63,35 +59,87 @@ function runTwilio(channelName) {
     function setupChannel() {
         // Join the general channel
         generalChannel.join().then(function(channel) {
-
         });
 
         // Listen for new messages sent to the channel
         generalChannel.on('messageAdded', function(message) {
-            printMessage(message.author, message.body);
+          printMessage(message.author, message.body);
         });
-    }
+      };
 
-        var $input = $('#chat-input');
-    $input.on('keydown', function(e) {
+      var $input = $('#chat-input');
+      $input.on('keydown', function(e) {
         if (e.keyCode == 13) {
-            generalChannel.sendMessage($input.val())
-            $input.val('');
-        }
-    });
+          var data = $input.val();
+          var request = $.ajax({
+            url:"/chats/message",
+            method:"post",
+            data: {message :data}
+          });
 
-        function printMessage(fromUser, message) {
-          console.log(fromUser)
-          console.log(message)
+          request.done(function(response ){
+            generalChannel.sendMessage(response.message);
+            $input.val('');
+          });
+        };
+      });
+
+      function printMessage(fromUser, message) {
+        console.log(fromUser)
+        console.log(message)
         var $user = $('<span class="username">').text(fromUser + ':');
         if (fromUser === username) {
-            $user.addClass('me');
-        }
-        var $message = $('<span class="message">').text(message);
+          $user.addClass('me');
+        };
+        if (message.includes("http://")||message.includes("https://")){
+          var $message = $('<img class="message" src="'+message+'">');
+        }else{
+          var $message = $('<span class="message">').text(message);
+        };
+        // var $message = $('<img class="message" src="'+message+'">');
+        console.log($message);
         var $container = $('<div class="message-container">');
         $container.append($user).append($message);
         $chatWindow.append($container);
         // $chatWindow.scrollTop($chatWindow[0].scrollHeight);
-    }
-}
+      };
+    };
 
+    function loginListener(){
+      $(".page-head").on("click","#login",function(event){
+        event.preventDefault();
+        var url = $(this).attr("href");
+        var method = $(this).attr("method");
+
+        var request = $.ajax({
+          url: url,
+          method:method
+        });
+
+        request.done(function(response){
+          $("#login").hide();
+          $("#register").show();
+          $(".head-div").empty().append(response);
+        });
+      });
+    };
+
+    function registerListener(){
+      $(".page-head").on("click","#register",function(event){
+        event.preventDefault();
+        var login = $("#login");
+        var url = $(this).attr("href");
+        var method = $(method).attr("method");
+
+        var request = $.ajax({
+          method: method,
+          url: url
+        });
+
+        request.done(function(response){
+          $("#register").hide();
+          $("#login").show();
+          $(".head-div").empty().append(response);
+        });
+      });
+    };

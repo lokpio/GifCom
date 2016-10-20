@@ -4,14 +4,17 @@
 # end
 #reg new users
 get '/users/new' do
-	erb :"users/new"
+	if request.xhr?
+		erb :"partials/_register",layout: false
+	else
+		erb :"users/new"
+	end
 end
 
 post '/users' do
 	if params[:user][:password] == params[:password_confirmation]
 		user = User.new(params[:user])
 		if user.save
-			# SendBirdApi.create_user(user)
 			login(user)
 			redirect "/channels"
 		else

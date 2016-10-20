@@ -1,22 +1,8 @@
 <h1>NEW USER REGISTRATION</h1>
 <!-- Route that to come here. uses get method -->
-
+<a href="/">Home page</a>
 
 <!-- post /users route -->
-<%if @errors %>
-<ul>
-	<% @errors.each do |name,content|%>
-		<li><%= "#{name}" +": "+ "#{content.first}" %></li>
-	<% end %>
-</ul>
-<% end %>
+<%= erb :"partials/_error",layout:false, locals:{errors: @errors} %>
 
-<form action="/users" method="post">
-  <input type="text" name="user[full_name]" placeholder="Full Name:" required>
-  <input type="email" name="user[email]" placeholder="Email:" required>
-  <input type="text" name="user[username]" placeholder="Username:" required>
-  <input type="password" name="user[password]" placeholder="Password:" required>
-  <input type="password" name="password_confirmation" placeholder="Password Confirmation:" required>
-
-  <input type="submit" value="Register!">
-</form>
+<%= erb :"partials/_register",layout: false %>

@@ -1,5 +1,9 @@
 get '/login' do
-  erb :"sessions/new"
+  if request.xhr?
+    page = erb :"partials/_login",layout: false
+  else
+    erb :"sessions/new"
+  end
 end
 
 post '/login' do
@@ -8,6 +12,7 @@ post '/login' do
     login(user)
     redirect "/channels"
   else
+    @errors = {message:["Account does not exist"]}
     redirect :"/users/new"
   end
 end

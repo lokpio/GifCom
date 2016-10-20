@@ -7,5 +7,3 @@ module GifApi
 	end
 end
 
-  # @gif = GifApi.gif_translate("fuck").parsed_response["data"]["images"]["original"]["url"]
-    # <img src="<%= @gif %>">
