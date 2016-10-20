@@ -1,11 +1,13 @@
 
 <h1>Username Chat</h1>
+    <form class="start-button">
+      <input type="hidden" name="channel" value="<%= @channel %>">
+      <input type="submit" value="chat">
+    </form>
 <div>
-	
+    <input id="chat-input" type="text" placeholder="say anything" autofocus/>
+    <div id="messages"></div>
 </div>
 
-<form action="/chats/channel" method="post">
-	<textarea rows="4" cols="80" name="message"></textarea>
-	<input type="submit" value="Send">
-</form>
+
 

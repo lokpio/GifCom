@@ -12,7 +12,8 @@ post '/users' do
 		user = User.new(params[:user])
 		if user.save
 			# SendBirdApi.create_user(user)
-			redirect "/login"
+			login(user)
+			redirect "/channels"
 		else
 			@errors = user.errors.messages
 			erb :"users/new"
