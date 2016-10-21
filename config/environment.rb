@@ -21,7 +21,6 @@ require 'sinatra/json'
 require 'erb'
 require 'httparty'
 require 'twilio-ruby'
-require 'pusher'
 
 require 'dotenv'
 Dotenv.load
