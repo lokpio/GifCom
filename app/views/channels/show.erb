@@ -8,12 +8,13 @@
 
 <% else %>
 <ul>
-    <form action="/channels/<%= @channel.id %>/join" method="post">
+    <form id="join-channel-form" action="/channels/<%= @channel.id %>/join" method="post">
     <p>Matched Channel:</p>
     <li><h4>  <%= @channel.name %></h4>
       <p>Created by: <%= @channel.creator.username %></p>
     <input type="submit" value="Join"></li>
     </form>
+    <div class="join-channel-error"></div>
 </ul>
   <% end %>
 <% else %>

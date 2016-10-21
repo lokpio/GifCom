@@ -6,7 +6,10 @@ $(document).ready(function() {
   leaveListener();
   createLinkListener();
   createListener();
+  joinListener();
 });
+
+
 
 function chatListener() {
     var channelName = $('.chat-form').children("input[name=channel]").val();
@@ -223,5 +226,20 @@ function runTwilio(channelName) {
         });
       });
     };
+function joinListener(){
+  $(".found-channel").on("submit","#join-channel-form",function(event){
+    event.preventDefault();
+    var url = $(this).attr("action");
+    var method = $(this).attr("method");
 
+    var request = $.ajax({
+      url: url,
+      method: method
+    });
+
+    request.done(function(response){
+      $(".join-channel-error").empty().append(response)
+    });
+  });
+};
 
