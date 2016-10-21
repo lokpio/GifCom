@@ -1,0 +1,32 @@
+<% if current_user %>
+  <h2>Welcome <%= current_user.username %>!</h2>
+  <div class="find-channel">
+  <form id="find-form" action="/channels/find" method="get">
+  <p>Find your Channel:</p>
+  <%= erb :"partials/_error",layout:false, locals:{errors: @errors} %>
+    <input type="text" name="name">
+    <input type="submit" value="Find">
+  </form>
+  </div>
+  <div class="found-channel"></div>
+
+
+  <h2>Channels:</h2>
+  <ul class="channel-list">
+  <% current_user.sub_channels.each do |channel| %>
+  <%= erb :"partials/_channel",layout:false,locals:{channel:channel} %>
+  <% end %>
+   <div class="channel-list-container"></div>
+  </ul>
+
+
+
+  <div class="create-channel">
+  <a id="create" href="/channels/new" method="get">Create channels</a>
+  </div>
+  <% else %>
+  <% redirect "/login" %>
+<% end %>
+
+
+

@@ -1,0 +1,22 @@
+<% if current_user %>
+<% if @errors %>
+  <% @errors.each do |error,contents| %>
+    <% contents.each do |content| %>
+      <p><%= content %></p>
+    <% end %>
+  <% end %>
+
+<% else %>
+<ul>
+    <form action="/channels/<%= @channel.id %>/join" method="post">
+    <p>Matched Channel:</p>
+    <li><h4>  <%= @channel.name %></h4>
+      <p>Created by: <%= @channel.creator.username %></p>
+    <input type="submit" value="Join"></li>
+    </form>
+</ul>
+  <% end %>
+<% else %>
+	<% redirect "/login"%>
+<% end %>
+

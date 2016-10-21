@@ -1,8 +1,10 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  has_many :friend_lists
-  # users.password_hash in the database is a :string
+  has_many :users_channels
+  has_many :create_channels, foreign_key:"creator_id"
+  has_many :sub_channels, through: :users_channels, source: :channel
+    # users.password_hash in the database is a :string
   include BCrypt
 
 	validates_presence_of :full_name
