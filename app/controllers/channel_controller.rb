@@ -68,7 +68,11 @@ post "/channels/:id/join" do
   else
     @channel = Channel.find(params[:id])
     @errors = subscribe.errors.messages
+    if request.xhr?
+      erb :"partials/_error",layout:false, locals:{errors: @errors}
+    else
     erb :"channels/show"
+  end
   end
 end
 
