@@ -1,16 +1,16 @@
 $(document).ready(function() {
-  chatListener();
+  window.onload = chatListener();
   loginListener();
   registerListener();
+  findListener();
+  leaveListener();
+  createLinkListener();
+  createListener();
 });
 
 function chatListener() {
-  $('.chat-form').on("click",function(event){
-    event.preventDefault();
-    var channelName = $(this).children("input[name=channel]").val();
-    console.log(channelName)
+    var channelName = $('.chat-form').children("input[name=channel]").val();
     runTwilio(channelName);
-  })
 }
 
 function runTwilio(channelName) {
@@ -143,3 +143,85 @@ function runTwilio(channelName) {
         });
       });
     };
+
+    function findListener(){
+      $(".find-channel").on("submit","#find-form",function(event){
+        event.preventDefault();
+        var url = $(this).attr("action");
+        var method = $(this).attr("method");
+        var data = $(this).serialize();
+
+        var request = $.ajax({
+          url: url,
+          method: method,
+          data: data
+        });
+
+        request.done(function(response){
+          $("#find-form").trigger("reset");
+          $(".found-channel").empty().append(response);
+        });
+      });
+    };
+
+    function leaveListener(){
+      $(".channel-list").on("submit","#leave-form",function(event){
+        event.preventDefault();
+        var url = $(this).attr("action");
+        var method = $(this).children("input[type=hidden]").attr("value");
+
+        var request = $.ajax({
+          url: url,
+          method: method
+        });
+
+        request.done(function(response){
+          $("#channel-list-"+response.id).remove();
+        });
+      });
+    };
+
+    function createLinkListener(){
+      $(".create-channel").on("click","#create",function(event){
+        event.preventDefault();
+        var url = $(this).attr("href");
+        var method = $(this).attr("method");
+
+        var request = $.ajax({
+          url: url,
+          method: method
+        });
+
+        request.done(function(response){
+          $(".create-channel").empty().append(response)
+        });
+      });
+    };
+
+    function createListener(){
+      $(".create-channel").on("submit","#create-channel-form",function(event){
+        event.preventDefault();
+        var url = $(this).attr("action");
+        var method = $(this).attr("method");
+        var data = $(this).children("input[name=name]").val();
+
+        var request = $.ajax({
+          url: url,
+          method: method,
+          data: {name:data}
+        });
+
+        request.done(function(response){
+          if (response.error){
+            $("#create-channel-form").trigger("reset");
+            $("#create-channel-error").empty().append(response.page);
+          }else{
+            $("#create-channel-error").empty()
+            $("#create-channel-form").trigger("reset");
+            $(".channel-list-container").append(response);
+          };
+        });
+      });
+    };
+
+

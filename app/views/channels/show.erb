@@ -9,11 +9,12 @@
 <% else %>
 <ul>
     <form action="/channels/<%= @channel.id %>/join" method="post">
+    <p>Matched Channel:</p>
     <li><h4>  <%= @channel.name %></h4>
       <p>Created by: <%= @channel.creator.username %></p>
     <input type="submit" value="Join"></li>
     </form>
-  </ul>
+</ul>
   <% end %>
 <% else %>
 	<% redirect "/login"%>

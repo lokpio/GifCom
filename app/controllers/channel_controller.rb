@@ -1,12 +1,13 @@
-
-
 get '/channels' do
-  @user = current_user
   erb :"channels/index"
 end
 
 get "/channels/new" do
-  erb :"channels/new"
+  if request.xhr?
+    erb :"channels/new",layout: false
+  else
+    erb :"channels/new"
+  end
 end
 
 post "/channels" do
@@ -14,25 +15,49 @@ post "/channels" do
   if channel.save
     subscribe = UsersChannel.new(user_id:current_user.id,channel_id:channel.id)
     if subscribe.save
-      redirect :"/channels"
+      if request.xhr?
+        erb :"partials/_channel",layout:false,locals:{channel:channel}
+      else
+        redirect :"/channels"
+      end
     else
       @errors = subscribe.errors.messages
+      if request.xhr?
+       page = erb :"partials/_error",layout:false, locals:{errors: @errors}
+       error = true
+       json page:page, error:error
+     else
       erb :"channels/new"
     end
-    redirect :"/channels"
+  end
+else
+  @errors = channel.errors.messages
+
+  if request.xhr?
+    page = erb :"partials/_error",layout:false, locals:{errors: @errors}
+    error = true
+    json page:page, error:error
   else
-    @errors = channel.errors.messages
     erb :"channels/new"
   end
+end
 end
 
 get "/channels/find" do
   @channel = Channel.find_by(name: params[:name])
   if @channel
-    erb :"channels/show"
+    if request.xhr?
+      erb :"channels/show", layout:false
+    else
+      erb :"channels/show"
+    end
   else
     @errors = {error:["Channel does not exist."]}
-    erb :"channels/index"
+    if request.xhr?
+      erb :"channels/show", layout:false
+    else
+      erb :"channels/index"
+    end
   end
 end
 
@@ -50,5 +75,9 @@ end
 delete "/channels/:id" do
   channel = Channel.find(params[:id])
   channel.destroy
-  redirect "/channels"
+  if request.xhr?
+    json id: params[:id]
+  else
+    redirect "/channels"
+  end
 end
