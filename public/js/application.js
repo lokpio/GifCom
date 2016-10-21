@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  window.onload = chatListener();
+  chatListener();
   loginListener();
   registerListener();
   findListener();
@@ -12,7 +12,8 @@ $(document).ready(function() {
 
 
 function chatListener() {
-    var channelName = $('.channel-form').children("input[name=channel]").val();
+    var channelName = $('.chat-form').children("input[name=channel]").val();
+    console.log(channelName)
     runTwilio(channelName);
 }
 
@@ -81,6 +82,7 @@ function runTwilio(channelName) {
           });
 
           request.done(function(response ){
+            console.log(response)
             generalChannel.sendMessage(response.message);
             $input.val('');
           });
