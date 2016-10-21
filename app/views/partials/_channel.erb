@@ -1,12 +1,14 @@
   <li id="channel-list-<%= channel.id %>">
+
     <form class="channel-form" action="/chats" method="get">
       <h4> <%= channel.name  %></h4>
       <p>Created by: <%= channel.creator.username %></p>
       <input type="hidden" name="channel" value="<%= channel.name %>">
-      <input type="submit" value="chat">
+      <input class="myButton" type="submit" value="chat">
     </form>
-    <form id="leave-form" class="" action="/channels/<%= channel.id %>" method="post">
+    <form id="leave-form" action="/channels/<%= channel.id %>" method="post">
       <input type="hidden" name="_method" value="delete">
-      <input type="submit" value="Leave">
+      <input class="myButton" type="submit" value="Leave">
     </form>
+
   </li>
