@@ -1,9 +1,14 @@
+
 <% if !logged_in? %>
-    <a href="/login" id="login" class="top-link" method="get">Login</a>
-    <a href="/users/new" class="top-link" id="register" method="get">Register</a>
-    <div class="head-div">
-    </div>
+<ul class="nav">
+    <li class="nav-list"><a href="/login" class="top-link" id="login" class="top-link" method="get">Login</a> </li>
+    <li class="nav-list"><a href="/users/new" class="top-link" id="register" method="get">Register</a></li>
+    <li class="nav-list"><div class="head-div"></div></li>
+</ul>
 <% else %>
-      <a href="/channels" class="top-link"><%= current_user.username %></a>
-      <a href="/logout" class="top-link">Logout</a>
+<ul class="nav">
+      <li class="nav-list"><a href="/channels" class="top-link"><%= current_user.username %></a></li>
+      <li class="nav-list"><a href="/logout" class="top-link">Logout</a></li>
+</ul>
 <% end %>
+

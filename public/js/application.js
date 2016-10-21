@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 
 function chatListener() {
-    var channelName = $('.chat-form').children("input[name=channel]").val();
+    var channelName = $('.channel-form').children("input[name=channel]").val();
     runTwilio(channelName);
 }
 
@@ -221,7 +221,7 @@ function runTwilio(channelName) {
           }else{
             $("#create-channel-error").empty()
             $("#create-channel-form").trigger("reset");
-            $(".channel-list-container").append(response);
+            $(".channel-list-div").append(response);
           };
         });
       });
