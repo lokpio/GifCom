@@ -1,8 +1,3 @@
-# #find friends
-# get'/users' do
-#   erb :"users/index"
-# end
-#reg new users
 get '/users/new' do
 	if request.xhr?
 		erb :"partials/_register",layout: false

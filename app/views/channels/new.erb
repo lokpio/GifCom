@@ -1,10 +1,13 @@
-
+<%= erb :"partials/_error",layout:false, locals:{errors: @errors} %>
 <% if current_user %>
-	<form class="create_channel" action="/channels" method="post">
+<div class="create-channel">
+	<form id="create-channel-form" action="/channels" method="post">
 		<p> Create Your Channel:</p>
+    <div id="create-channel-error"></div>
 		<input type="text" name="name" required>
 		<input type="submit" value="Create!">
 	</form>
+</div>
 <% else %>
 	<% redirect :"/login" %>
 <% end %>
