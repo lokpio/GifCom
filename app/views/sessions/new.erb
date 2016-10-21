@@ -1,0 +1,8 @@
+<h1>LOGIN PAGE</h1>
+
+<!-- post '/sessions' -->
+<% if !current_user %>
+  <%= erb :"partials/_login",layout: false %>
+<% else %>
+  <% redirect "/friends" %>
+<% end %>

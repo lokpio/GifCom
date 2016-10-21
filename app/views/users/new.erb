@@ -1,0 +1,8 @@
+<h1>NEW USER REGISTRATION</h1>
+<!-- Route that to come here. uses get method -->
+<a href="/">Home page</a>
+
+<!-- post /users route -->
+<%= erb :"partials/_error",layout:false, locals:{errors: @errors} %>
+
+<%= erb :"partials/_register",layout: false %>

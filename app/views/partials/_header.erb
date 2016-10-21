@@ -1,0 +1,9 @@
+<% if !logged_in? %>
+    <a href="/login" id="login" class="top-link" method="get">Login</a>
+    <a href="/users/new" class="top-link" id="register" method="get">Register</a>
+    <div class="head-div">
+    </div>
+<% else %>
+      <a href="/channels" class="top-link"><%= current_user.username %></a>
+      <a href="/logout" class="top-link">Logout</a>
+<% end %>
