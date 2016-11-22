@@ -152,3 +152,14 @@ footer p{
   bottom: 80px;
   position:fixed;
 }
+
+.chat-page{
+  display: flex;
+  flex-direction: column;
+}
+
+#messages{
+  overflow: scroll;
+  height: 400px;
+  margin-top: 10%;
+}

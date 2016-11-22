@@ -1,14 +1,15 @@
   <header class="page-head">
-    <%= erb :'partials/_header' %>
+  	<%= erb :'partials/_header' %>
   </header>
-<h1><%= @channel %>Chat</h1>
-    <form class="chat-form">
-      <input type="hidden" name="channel" value="<%= @channel %>">
-    </form>
-<div>
-    <div id="messages"></div>
-     <input id="chat-input" type="text" placeholder="say anything" autofocus/>
-</div>
 
+ <div class="chat-page">
+  	<form class="chat-form">
+  		<input type="hidden" name="channel" value="<%= @channel %>">
+  	</form>
+  <div class="messages-input">
+  	<div id="messages"></div>
+  	<input id="chat-input" type="text" placeholder="say anything" autofocus/>
+  </div>
+</div>
 
 
